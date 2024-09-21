@@ -1,0 +1,64 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.env
+db.sqlite3
+*.db
+
+# If you're using Django migrations, ignore these files
+migrations/
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Static files
+/static/
+staticfiles/
+public/static/
+
+# Media files
+/media/
+
+# Local development environment
+.env
+local_settings.py
+
+# Ignore virtual environment
+venv/
+ENV/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# Ignore IDE configurations
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Ignore mypy type-checking files
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Ignore Django REST Framework auto-generated docs
+docs/_build/
