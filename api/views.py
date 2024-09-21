@@ -1,52 +1,35 @@
+from django.http import response
 from django.shortcuts import render
-
+from rest_framework.decorators import api_view
+from rest_framework.serializers import Serializer
+from api import serializers
+from .utils import updateNote, getNoteDetail, deleteNote, getNotesList, createNote
 
 # Create your views here.
+# /notes GET
+# /notes POST
+# /notes/<id> GET
+# /notes/<id> PUT
+# /notes/<id> DELETE
 
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .models import Notes
-from .serializers import NoteSerializer
-
-
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def getNotes(request):
-    notes = Notes.objects.all().order_by('-updated')
-    serializer = NoteSerializer(notes, many = True)
-    
-    return Response(serializer.data)
 
-@api_view(['GET'])
+    if request.method == 'GET':
+        return getNotesList(request)
+
+    if request.method == 'POST':
+        return createNote(request)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
 def getNote(request, pk):
-    note = Notes.objects.get(id=pk)
-    serializer = NoteSerializer(note, many = False)
-    
-    return Response(serializer.data)
 
+    if request.method == 'GET':
+        return getNoteDetail(request, pk)
 
-@api_view(['POST'])
-def createNote(request):
-    data = request.data
-    note = Notes.objects.create(
-        body = data['body']
-    )
-    serializer = NoteSerializer(note, many=False)
-    return Response(serializer.data)
+    if request.method == 'PUT':
+        return updateNote(request, pk)
 
-
-@api_view(['PUT'])
-def updateNote(request,pk):
-    data = request.data
-    note = Notes.objects.get(id=pk)
-    serializer = NoteSerializer(instance=note, data=data)
-    
-    if serializer.is_valid():
-        serializer.save()
-        
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
-def deleteNote(request,pk):
-    note = Notes.objects.get(id=pk)
-    note.delete()
-    return Response("The note was deleted!")
+    if request.method == 'DELETE':
+        return deleteNote(request, pk)
