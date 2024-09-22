@@ -1,5 +1,8 @@
 from pathlib import Path
 from dotenv import load_dotenv
+
+import os
+
 load_dotenv()
 
 
@@ -68,16 +71,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mynotes.wsgi.application'
 
 
-import os
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),  # Your database name
-        'USER': os.getenv('DB_USER'),  # Your database user
-        'PASSWORD': os.getenv('DB_PASSWORD'),  # Your database password
-        'HOST': os.getenv('DB_HOST', 'localhost'),  # DB service name in Docker
-        'PORT': os.getenv('DB_PORT', '5432'),  # PostgreSQL port
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', 'db'), 
+        'PORT': os.getenv('DB_PORT', '5432'), 
     }
 }
 
